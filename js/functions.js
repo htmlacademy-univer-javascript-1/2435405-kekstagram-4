@@ -7,15 +7,9 @@ const isStringPalindrome = (string) => {
   const newString = string.replaceAll(' ', '').toLowerCase();
   let reverseString = '';
 
-  for (let i = newString.length - 1; i >= 0; i--)
-  {
+  for (let i = newString.length - 1; i >= 0; i--) {
     reverseString += newString[i];
   }
-  if (reverseString === newString)
-  {
-    return true;
-  }
-  return false;
-
+  return reverseString === newString;
 };
 isStringPalindrome('А роза упала на лапу Азора');
