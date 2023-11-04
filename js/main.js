@@ -1,6 +1,12 @@
-const getRandomNumberFromInterval = (min, max)=> Math.floor(Math.random() * (max - min + 1) + min);
+const PhotoCounts = 25;
 
-const photoCounts = 25;
+const AvatarId = {MIN: 1, MAX: 6,};
+
+const CommentsCount = {MIN: 0, MAX: 30,};
+
+const SentencesCount = {MIN: 1, MAX: 2,};
+
+const LikesCount = {MIN: 15, MAX: 200,};
 
 const DESCRIPTIONS = [
   'Это моя семья',
@@ -20,43 +26,37 @@ const COMMENTS = [
 ];
 const NAMES = ['Артём', 'Леша', 'Семен', 'Саша', 'Лиза', 'Даша',];
 
-const avatarId = {min: 1, max: 6,};
-
-const commentsCount = {min: 0, max: 30,};
-
-const sentencesCount = {min: 1, max: 2,};
-
-const likesCount = {min: 15, max: 200,};
+const getRandomNumberFromInterval = (min, max)=> Math.floor(Math.random() * (max - min + 1) + min);
 
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 const getComment = (_, id) => ({
-  id,
+  id: id + 1,
   avatar: `img/avatar-${getRandomNumberFromInterval(
-    avatarId.min,
-    avatarId.max
+    AvatarId.MIN,
+    AvatarId.MAX
   )}.svg`,
   message: shuffle(COMMENTS).slice(0, getRandomNumberFromInterval(
-    sentencesCount.min,
-    sentencesCount.max
+    SentencesCount.MIN,
+    SentencesCount.MAX
   )),
   name: NAMES[getRandomNumberFromInterval(0, NAMES.length - 1)],
 });
 
 const getPhotoData = (_, id) => ({
-  id,
+  id: id + 1,
   url: `photos/${id}.jpg`,
   description: DESCRIPTIONS[getRandomNumberFromInterval(0, DESCRIPTIONS.length - 1)],
   likes: getRandomNumberFromInterval(
-    likesCount.min,
-    likesCount.max
+    LikesCount.MIN,
+    LikesCount.MAX
   ),
   coments: Array.from({length: getRandomNumberFromInterval(
-    commentsCount.min,
-    commentsCount.max
+    CommentsCount.MIN,
+    CommentsCount.MAX
   )}, (getComment)),
 });
 
-const getPhotos = () => Array.from({length: photoCounts}, getPhotoData);
+const getPhotos = () => Array.from({length: PhotoCounts}, getPhotoData);
 
 getPhotos();
