@@ -1,4 +1,4 @@
-import {PhotoCounts, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES} from './variables.js';
+import {PHOTOS_COUNT, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES} from './variables.js';
 
 const getRandomNumberFromInterval = (min, max)=> Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -33,6 +33,6 @@ const getPhotoData = (_, id) => ({
   )}, (getComment)),
 });
 
-const getPhotos = () => Array.from({length: PhotoCounts}, getPhotoData);
+const getPhotos = () => Array.from({length: PHOTOS_COUNT}, getPhotoData);
 
 export {getPhotos};
