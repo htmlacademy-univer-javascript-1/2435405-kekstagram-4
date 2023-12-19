@@ -1,9 +1,5 @@
 import {PHOTOS_COUNT, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES} from './variables.js';
-
-const getRandomNumberFromInterval = (min, max)=> Math.floor(Math.random() * (max - min + 1) + min);
-
-const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-
+import {shuffle, getRandomNumberFromInterval} from './utils.js';
 
 const getComment = (_, id) => ({
   id: id + 1,
