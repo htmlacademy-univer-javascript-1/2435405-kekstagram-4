@@ -2,7 +2,7 @@ import {isEscapeKey} from './utils.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
-const commentsList = document.querySelector('.social__comments');
+const commentsList = bigPicture.querySelector('.social__comments');
 const commentsElement = commentsList.querySelector('.social__comment');
 const commentsCount = bigPicture.querySelector('.social__comment-count');
 const commentsloadButton = bigPicture.querySelector('.comments-loader');
@@ -18,8 +18,13 @@ const createComment = ( {avatar, name, message} ) => {
 };
 
 const renderComments = (comments) => {
-  bigPicture.querySelector('.social__comments').innerHTML = '';
-  bigPicture.querySelector('.social__comments').insertAdjacentHTML('afterbegin', comments.map((comment) => createComment(comment.avatar, comment.name, comment.message)).join(''));
+  commentsList.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+
+  comments.forEach((comment) => {
+    fragment.appendChild(createComment(comment));
+  });
+  commentsList.appendChild(fragment);
 };
 
 const closePopup = () => {
@@ -40,11 +45,11 @@ function onDocumentKeydown (evt) {
   }
 }
 
-const renderPictureData = ( { url, likes, description} ) => {
-  bigPicture.querySelector('.big-picture__img').querySelector().src = url;
-  bigPicture.querySelector('.big-picture__img').alt = description;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.social__caption').textContent = description;
+const renderPictureData = (picture) => {
+  bigPicture.querySelector('.big-picture__img').querySelector('img').src = picture.url;
+  bigPicture.querySelector('.likes-count').textContent = picture.likes;
+  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPicture.querySelector('.social__caption').textContent = picture.description;
 };
 
 const renderBigPicture = (picture) => {
