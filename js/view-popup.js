@@ -1,8 +1,9 @@
-import {isEscapeKey} from './utils';
+import {isEscapeKey} from './utils.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
-const commentsElement = document.querySelector('.social__comments').content.querySelector('.social__comment');
+const commentsList = document.querySelector('.social__comments');
+const commentsElement = commentsList.querySelector('.social__comment');
 const commentsCount = bigPicture.querySelector('.social__comment-count');
 const commentsloadButton = bigPicture.querySelector('.comments-loader');
 
@@ -50,6 +51,7 @@ const renderBigPicture = (picture) => {
   bigPicture.classList.remove('hidden');
   commentsCount.classList.add('hidden');
   commentsloadButton.classList.add('hidden');
+  document.querySelector('body').classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButton.addEventListener('click', onCloseButtonClick);

@@ -17,13 +17,13 @@ const getComment = (_, id) => ({
 
 const getPhotoData = (_, id) => ({
   id: id + 1,
-  url: `photos/${id}.jpg`,
+  url: `photos/${id + 1}.jpg`,
   description: DESCRIPTIONS[getRandomNumberFromInterval(0, DESCRIPTIONS.length - 1)],
   likes: getRandomNumberFromInterval(
     LikesCount.MIN,
     LikesCount.MAX
   ),
-  coments: Array.from({length: getRandomNumberFromInterval(
+  comments: Array.from({length: getRandomNumberFromInterval(
     CommentsCount.MIN,
     CommentsCount.MAX
   )}, (getComment)),
