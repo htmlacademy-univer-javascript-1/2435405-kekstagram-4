@@ -1,5 +1,5 @@
 import {isEscapeKey, isRightString} from './utils.js';
-import {MAX_HASHTAG_COUNT, HASTAG_REGEX, MAX_HASHTAG_LENGTH, MAX_COMMENT_LENGTH} from './variables.js';
+import {MAX_HASHTAG_COUNT, HASTAG_REGEX, MAX_HASHTAG_LENGTH, MAX_COMMENT_LENGTH, SCALE_STEP, ScaleValue} from './variables.js';
 
 const VALID_IMAGE_TYPES = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
@@ -9,6 +9,11 @@ const uploadForm = document.querySelector('.img-upload__form');
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const hashtagsField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const picturePreview = uploadForm.querySelector('.img-upload__preview img');
+const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
+const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControlValue = uploadForm.querySelector('.scale__control--value');
+
 
 const isCorrectComment = (comment) => isRightString(comment, MAX_COMMENT_LENGTH);
 
@@ -44,18 +49,64 @@ const onDocumentKeydown  = (evt) => {
   if (isEscapeKey(evt) && document.activeElement !== hashtagsField
   && document.activeElement !== commentField) {
     evt.preventDefault();
-    closeOverlay();
+    closeForm();
   }
 };
 
 const onCancelButtonClick = () => {
-  closeOverlay();
+  closeForm();
 };
 
-function closeOverlay () {
+const onBiggerClick = () => {
+  let scaleValue = Number(scaleControlValue.value.slice(0, -1));
+  if (scaleValue < ScaleValue.MAX) {
+    scaleValue += SCALE_STEP;
+    scaleControlValue.value = `${scaleValue}%`;
+    picturePreview.style.transform = `scale(${scaleValue * 0.01})`;
+  }
+};
+
+const onSmallerCLick = () => {
+  let scaleValue = Number(scaleControlValue.value.slice(0, -1));
+  if (scaleValue > ScaleValue.MAX) {
+    scaleValue -= SCALE_STEP;
+    scaleControlValue.value = `${scaleValue}%`;
+    picturePreview.style.transform = `scale(${scaleValue * 0.01})`;
+  }
+};
+
+const closeScaleControl = () => {
+  scaleControlSmaller.removeEventListener('click', onSmallerCLick);
+  scaleControlBigger.removeEventListener('click', onBiggerClick);
+  picturePreview.style.transform = '';
+};
+
+const initScaleControl = () => {
+  scaleControlValue.value = `${ScaleValue.MAX}%`;
+  scaleControlSmaller.addEventListener('click', onSmallerCLick);
+  scaleControlBigger.addEventListener('click', onBiggerClick);
+};
+
+const openForm = () => {
+  if(!isPicture()) {return;}
+  imageOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+
+  cancelButton.addEventListener('click', onCancelButtonClick);
+  document.addEventListener('keydown', onDocumentKeydown);
+  scaleControlBigger.addEventListener('click', onBiggerClick);
+  scaleControlSmaller.addEventListener('click', onSmallerCLick);
+  initScaleControl();
+};
+
+function closeForm () {
   document.body.classList.remove('modal-open');
   imageOverlay.classList.add('hidden');
+
   document.removeEventListener('keydown', onDocumentKeydown );
+  scaleControlBigger.removeEventListener('click', onBiggerClick);
+  scaleControlSmaller.removeEventListener('click', onSmallerCLick);
+  closeScaleControl();
   pristine.reset();
 }
 
@@ -67,19 +118,12 @@ const initValidateForm = () => {
   return pristine.validate();
 };
 
-const onUploadButtonChange = () => {
-  if(!isPicture()) {return;}
-  imageOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  cancelButton.addEventListener('click', onCancelButtonClick);
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
 const renderUploadForm = () => {
-  imageUploadButton.addEventListener('change', onUploadButtonChange);
+  imageUploadButton.addEventListener('change', openForm);
 
   uploadForm.addEventListener('submit', (evt) => {
     if (!initValidateForm()) {
+      initScaleControl();
       evt.preventDefault();
     }
   });
