@@ -2,6 +2,14 @@ const PHOTOS_COUNT = 25;
 
 const COMMENTS_SHOWN_STEP = 5;
 
+const MAX_HASHTAG_COUNT = 5;
+
+const HASTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
+
+const MAX_HASHTAG_LENGTH = 20;
+
+const MAX_COMMENT_LENGTH = 140;
+
 const AvatarId = {MIN: 1, MAX: 6,};
 
 const CommentsCount = {MIN: 0, MAX: 30,};
@@ -30,4 +38,4 @@ const COMMENTS = [
 
 const NAMES = ['Артём', 'Леша', 'Семен', 'Саша', 'Лиза', 'Даша',];
 
-export {PHOTOS_COUNT, COMMENTS_SHOWN_STEP, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES};
+export {PHOTOS_COUNT, COMMENTS_SHOWN_STEP, MAX_HASHTAG_COUNT, HASTAG_REGEX, MAX_HASHTAG_LENGTH, MAX_COMMENT_LENGTH, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES};
