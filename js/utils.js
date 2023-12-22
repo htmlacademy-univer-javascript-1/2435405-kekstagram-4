@@ -4,4 +4,6 @@ const getRandomNumberFromInterval = (min, max)=> Math.floor(Math.random() * (max
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {shuffle, getRandomNumberFromInterval, isEscapeKey};
+const isRightString = (string, maxLength) => String(string).length <= maxLength;
+
+export {shuffle, getRandomNumberFromInterval, isEscapeKey, isRightString};
