@@ -1,5 +1,7 @@
 const PHOTOS_COUNT = 25;
 
+const COMMENTS_SHOWN_STEP = 5;
+
 const AvatarId = {MIN: 1, MAX: 6,};
 
 const CommentsCount = {MIN: 0, MAX: 30,};
@@ -28,4 +30,4 @@ const COMMENTS = [
 
 const NAMES = ['Артём', 'Леша', 'Семен', 'Саша', 'Лиза', 'Даша',];
 
-export {PHOTOS_COUNT, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES};
+export {PHOTOS_COUNT, COMMENTS_SHOWN_STEP, AvatarId, CommentsCount, SentencesCount, LikesCount, DESCRIPTIONS, COMMENTS, NAMES};
