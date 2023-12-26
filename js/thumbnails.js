@@ -1,7 +1,7 @@
 import {renderBigPicture} from './view-popup.js';
 
-const template = document.querySelector('#picture').content.querySelector('.picture');
-const picturesContainer = document.querySelector('.pictures');
+const templateThumbnailElement = document.querySelector('#picture').content.querySelector('.picture');
+const picturesContainerElement = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
 let photos = null;
 
@@ -16,7 +16,7 @@ const onThumbnailsContainerClick = (evt) => {
 };
 
 const createThumbnail = (photo) => {
-  const picture = template.cloneNode(true);
+  const picture = templateThumbnailElement.cloneNode(true);
   picture.dataset.pictureId = photo.id;
   picture.querySelector('.picture__img').src = photo.url;
   picture.querySelector('.picture__img').alt = photo.description;
@@ -32,8 +32,8 @@ const renderThumbnails = (data) => {
     const thumbnail = createThumbnail(photo);
     fragment.appendChild(thumbnail);
   });
-  picturesContainer.appendChild(fragment);
-  picturesContainer.addEventListener('click', onThumbnailsContainerClick);
+  picturesContainerElement.appendChild(fragment);
+  picturesContainerElement.addEventListener('click', onThumbnailsContainerClick);
 };
 
 export {renderThumbnails};

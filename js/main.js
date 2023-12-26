@@ -1,7 +1,6 @@
 import {getPhotos} from './data.js';
 import {renderThumbnails} from './thumbnails.js';
-import {renderUploadForm} from './form.js';
+import {initEditPopup} from './form.js';
 
 renderThumbnails(getPhotos());
-renderUploadForm();
-
+initEditPopup();
