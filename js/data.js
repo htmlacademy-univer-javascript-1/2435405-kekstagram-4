@@ -14,7 +14,6 @@ const getComment = (_, id) => ({
   name: NAMES[getRandomNumberFromInterval(0, NAMES.length - 1)],
 });
 
-
 const getPhotoData = (_, id) => ({
   id: id + 1,
   url: `photos/${id + 1}.jpg`,

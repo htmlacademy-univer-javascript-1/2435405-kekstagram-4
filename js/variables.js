@@ -22,6 +22,8 @@ export const LikesCount = {MIN: 15, MAX: 200,};
 
 export const ScaleValue = {MIN: 25, MAX: 100,};
 
+export const VALID_IMAGE_TYPES = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+
 export const DESCRIPTIONS = [
   'Это моя семья',
   'Как вам?',
